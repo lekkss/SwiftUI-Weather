@@ -21,3 +21,13 @@ struct WeatherButton: View {
     }
 }
 
+
+
+struct WeatherBbutton_Preview: View {
+    var body: some View {
+        WeatherButton(title: "TEst", textColor: .white, backgroundColor: .blue)
+    }
+}
+#Preview {
+    WeatherBbutton_Preview()
+}

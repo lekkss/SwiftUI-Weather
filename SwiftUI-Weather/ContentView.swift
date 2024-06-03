@@ -12,7 +12,7 @@ struct ContentView: View {
     @State private var isNight = false
     var body: some View {
         ZStack {
-            BackgroundView(isNight: $isNight)
+            BackgroundView(isNight: isNight)
             VStack{
                CityTextView(cityName: "Cupertino, CA")
                 MainWeatherStatusView(imageName:isNight ? "moon.stars.fill" : "cloud.sun.fill", temperature: 77)
@@ -27,7 +27,7 @@ struct ContentView: View {
                 Button{
                     isNight.toggle()
                 } label: {
-                    WeatherButton(title: "Change Day Time", textColor: .blue, backgroundColor: .white)
+                    WeatherButton(title: "Change Day Time", textColor: .white, backgroundColor: .mint)
                 }
                 Spacer()
             }
@@ -62,13 +62,15 @@ struct WeatherDayView: View {
 }
 
 struct BackgroundView: View {
-    @Binding var isNight: Bool
+    var isNight: Bool
     
     var body: some View {
-        LinearGradient(gradient: Gradient(colors: [isNight ? .black: .blue, isNight ? .gray : Color("lightBlue")]),
-                       startPoint: .topLeading,
-                       endPoint: .bottomTrailing)
-        .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+//        LinearGradient(gradient: Gradient(colors: [isNight ? .black: .blue, isNight ? .gray : Color("lightBlue")]),
+//                       startPoint: .topLeading,
+//                       endPoint: .bottomTrailing)
+        ContainerRelativeShape()
+            .fill(isNight ? Color.black.gradient : Color.blue.gradient)
+        .ignoresSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
     }
 }
 
@@ -88,7 +90,7 @@ struct MainWeatherStatusView: View {
     var body: some View {
         VStack(spacing: 10){
             Image(systemName: imageName)
-                .renderingMode(.original)
+                .symbolRenderingMode(.multicolor)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 140,height: 140)
